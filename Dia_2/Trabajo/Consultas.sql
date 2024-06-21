@@ -1,105 +1,103 @@
-use TrabajoDia2;
--- #############################
--- ######### CONSULTAS #########
--- #############################
--- Consultas sobre una tabla
+	use TrabajoDia2;
+	-- #############################
+	-- ######### CONSULTAS #########
+	-- #############################
+	-- Consultas sobre una tabla
 
-use TrabajoDia2;
-
--- 1.Lista el primer apellido de todos los empleados.
+	-- 1.Lista el primer apellido de todos los empleados.
     delimiter //
     create procedure eje1()
     begin
-    select apellido1
-from empleado;
+    	select apellido1
+		from empleado;
     end //
-    delimiter ;
+    delimiter ;	
     call eje1();
-
--- 2.Lista el primer apellido de los empleados eliminando los apellidos que estén repetidos.
+	
+	-- 2.Lista el primer apellido de los empleados eliminando los apellidos que estén repetidos.
     delimiter //
     create procedure eje2()
     begin
-select distinct apellido1
-from empleado;
+		select distinct apellido1
+		from empleado;
     end //
     delimiter ;
 call eje2();
 
--- 3.Lista todas las columnas de la tabla empleado.
+	-- 3.Lista todas las columnas de la tabla empleado.
     delimiter //
     create procedure eje3()
     begin
-select *
-from empleado;
+		select *
+		from empleado;
     end //
     delimiter ;
     call eje3();
 
--- 4.Lista el nombre y los apellidos de todos los empleados.
+	-- 4.Lista el nombre y los apellidos de todos los empleados.
     delimiter //
     create procedure eje4()
     begin
-select nombre, apellido1 as apellido, apellido2 as segundo_apellido
-from empleado;
+		select nombre, apellido1 as apellido, apellido2 as segundo_apellido
+		from empleado;
     end //
     delimiter ;
     call eje4();
     
--- 5.Lista el identificador de los departamentos de los empleados que aparecen en la tabla empleado
+	-- 5.Lista el identificador de los departamentos de los empleados que aparecen en la tabla empleado
     delimiter //
     create procedure eje5()
     begin
-select id_departamento 
-from empleado;
+		select id_departamento 
+		from empleado;
     end //
     delimiter ;
 call eje5();
 
--- 6.Lista el identificador de los departamentos de los empleados que aparecen
--- en la tabla empleado, eliminando los identificadores que aparecen repetidos.
+	-- 6.Lista el identificador de los departamentos de los empleados que aparecen
+	-- en la tabla empleado, eliminando los identificadores que aparecen repetidos.
     delimiter //
     create procedure eje6()
     begin
-    select distinct id_departamento
-from empleado;
+    	select distinct id_departamento
+		from empleado;
     end //
     delimiter ;
     call eje6();
 
--- 7.Lista el nombre y apellidos de los empleados en una única columna.
+	-- 7.Lista el nombre y apellidos de los empleados en una única columna.
     delimiter //
     create procedure eje7()
     begin
-    select CONCAT(nombre, ' ', apellido1, ' ', apellido2) as nombre_completo 
-from empleado;
+    	select CONCAT(nombre, ' ', apellido1, ' ', apellido2) as nombre_completo 
+		from empleado;
     end //
     delimiter ;
 call eje7();
 
--- 8.Lista el nombre y apellidos de los empleados en una única columna,
--- convirtiendo todos los caracteres en mayúscula.
+	-- 8.Lista el nombre y apellidos de los empleados en una única columna,
+	-- convirtiendo todos los caracteres en mayúscula.
     delimiter //
     create procedure eje8()
     begin
-    select ucase(concat(nombre, ' ', apellido1, '' , apellido2)) as nombre_completo
-from empleado;
+    	select ucase(concat(nombre, ' ', apellido1, '' , apellido2)) as nombre_completo
+		from empleado;
     end //
     delimiter ;
 call eje8();
 
--- 9.Lista el nombre y apellidos de los empleados en una única columna,
--- convirtiendo todos los caracteres en minúscula.
+	-- 9.Lista el nombre y apellidos de los empleados en una única columna,
+	-- convirtiendo todos los caracteres en minúscula.
     delimiter //
     create procedure eje9()
     begin
-    select lower(concat(nombre, ' ', apellido1, ' ' , apellido2)) as nombre_complete
-from empleado;
+    	select lower(concat(nombre, ' ', apellido1, ' ' , apellido2)) as nombre_complete
+		from empleado;
     end //
     delimiter ;
 call eje9();
 
--- 10.Lista el identificador de los empleados junto al nif, pero el nif deberá
+	-- 10.Lista el identificador de los empleados junto al nif, pero el nif deberá
 	-- aparecer en dos columnas, una mostrará únicamente los dígitos del nif y la
 	-- otra la letra.
     delimiter //
@@ -198,5 +196,229 @@ call eje14();
     end //
     delimiter ;
     call eje16();
-    
 
+	-- 17.Devuelve una lista con el nombre y el presupuesto, de los 3 departamentos
+	-- que tienen menor presupuesto.
+    delimiter //
+    create procedure eje17()
+    begin
+    	select nombre, presupuesto
+		from departamento
+		order by presupuesto asc
+		limit 3;
+    end //
+    delimiter ;
+    call eje17();
+
+	-- 18.Devuelve una lista con el nombre y el gasto, de los 2 departamentos que
+	-- tienen mayor gasto.
+    delimiter //
+    create procedure eje18()
+    begin 
+    	select nombre, presupuesto
+		from departamento
+		order by presupuesto desc
+		limit 2;
+    end //
+    delimiter ;
+    call eje18();
+
+	-- 19.Devuelve una lista con el nombre y el gasto, de los 2 departamentos que
+	-- tienen menor gasto.
+    delimiter //
+    create procedure eje19()
+    begin
+    	select nombre, presupuesto
+		from departamento
+		order by presupuesto asc
+		limit 2;
+    end //
+    delimiter ;
+    call eje19();
+
+	-- 20.Devuelve una lista con 5 filas a partir de la tercera fila de la tabla empleado. La
+	-- tercera fila se debe incluir en la respuesta. La respuesta debe incluir todas las
+	-- columnas de la tabla empleado.
+    delimiter //
+    create procedure eje20()
+    begin
+    	select * 
+		from empleado 
+		limit 2, 5;
+    end //
+	delimiter ;
+call eje20();
+
+	-- 21.Devuelve una lista con el nombre de los departamentos y el presupuesto, de
+	-- aquellos que tienen un presupuesto mayor o igual a 150000 euros.
+    delimiter //
+    create procedure eje21()
+    begin
+    	select nombre, presupuesto
+		from departamento
+		where presupuesto >= 150000;
+    end //
+    delimiter ;
+    call eje21();
+
+	-- 22.Devuelve una lista con el nombre de los departamentos y el gasto, de
+	-- aquellos que tienen menos de 5000 euros de gastos.
+    delimiter //
+    create procedure eje22()
+    begin
+    	select nombre, presupuesto
+		from departamento
+		where presupuesto < 5000;
+    end //
+    delimiter ;
+    call eje22();
+
+	-- 23.Devuelve una lista con el nombre de los departamentos y el presupuesto, de
+	-- aquellos que tienen un presupuesto entre 100000 y 200000 euros. Sin
+	-- utilizar el operador BETWEEN.
+    delimiter //
+    create procedure eje23()
+    begin
+    	select nombre, presupuesto 
+		from departamento 
+		where presupuesto >= 100000 and presupuesto <= 200000;
+    end //
+    delimiter ;
+    call eje23();
+
+	-- 24.Devuelve una lista con el nombre de los departamentos que no tienen un
+	-- presupuesto entre 100000 y 200000 euros. Sin utilizar el operador BETWEEN.
+    delimiter //
+    create procedure eje24()
+    begin
+    	select nombre, presupuesto
+		from departamento
+		where presupuesto < 100000 or presupuesto > 200000;
+    end //
+    delimiter ;
+    call eje24();
+
+	-- 25.Devuelve una lista con el nombre de los departamentos que tienen un
+	-- presupuesto entre 100000 y 200000 euros. Utilizando el operador BETWEEN.
+    delimiter //
+    create procedure eje25()
+    begin
+    	select nombre 
+		from departamento 
+		where presupuesto between 100000 and 200000;
+    end //
+    delimiter ;
+    call eje25();
+
+	-- 26.Devuelve una lista con el nombre de los departamentos que no tienen un
+	-- presupuesto entre 100000 y 200000 euros. Utilizando el operador BETWEEN.
+    delimiter //
+    create procedure eje26()
+    begin
+    	select nombre
+		from departamento 
+		where presupuesto not between 100000 and 200000;
+    end //
+    delimiter ;
+    call eje26();
+
+	-- 27.Devuelve una lista con el nombre de los departamentos, gastos y
+	-- presupuesto, de aquellos departamentos donde los gastos sean mayores
+	-- que el presupuesto del que disponen.
+    delimiter //
+    create procedure eje27()
+    begin
+    	select nombre, gastos, presupuesto 
+		from departamento 
+		where gastos > presupuesto;
+    end //
+    delimiter ;
+    call eje27();
+
+	-- 28.Devuelve una lista con el nombre de los departamentos, gastos y
+	-- presupuesto, de aquellos departamentos donde los gastos sean menores
+	-- que el presupuesto del que disponen.
+    delimiter //
+    create procedure eje28()
+    begin
+    	select nombre, gastos, presupuesto
+		from departamento
+		where gastos < presupuesto;
+    end //
+    delimiter ;
+    call eje28();
+
+	-- 29.Devuelve una lista con el nombre de los departamentos, gastos y
+	-- presupuesto, de aquellos departamentos donde los gastos sean iguales al
+	-- presupuesto del que disponen.
+    delimiter //
+    create procedure eje29()
+    begin
+    	select nombre, gastos, presupuesto
+		from departamento
+		where gastos = presupuesto;
+    end //
+    delimiter ;
+    call eje29();
+
+	-- 30.Lista todos los datos de los empleados cuyo segundo apellido sea NULL.
+    delimiter //
+    create procedure eje30()
+    begin 
+    	select *
+		from empleado
+		where apellido2 is null;
+    end //
+    delimiter ;
+    call eje30();
+
+-- 31.Lista todos los datos de los empleados cuyo segundo apellido no sea NULL.
+delimiter //
+create procedure eje31()
+begin
+	select *
+	from empleado
+	where apellido2 is not null;
+end //
+delimiter ;
+call eje31();
+
+-- 32. Lista todos los datos de los empleados cuyo segundo apellido sea López.
+delimiter //
+create procedure eje32()
+begin
+	select *
+    from empleado
+    where apellido2 = 'López';
+end //
+delimiter ;
+call eje32();
+
+-- 33.Lista todos los datos de los empleados cuyo segundo apellido
+-- sea Díaz o Moreno. Sin utilizar el operador IN.
+delimiter //
+create procedure eje33()
+begin
+	select *
+    from empleado
+    where apellido2 = 'Díaz' or apellido2 = 'Moreno';
+end //
+delimiter ;
+call eje33();
+
+-- 34.Lista todos los datos de los empleados cuyo segundo apellido
+-- sea Díaz o Moreno. Utilizando el operador IN.
+delimiter //
+create procedure eje34()
+begin
+	select *
+    from empleado
+    where apellido2 in ('Díaz', 'Moreno');
+end //
+delimiter ;
+call eje34();
+
+-- 35.Lista los nombres, apellidos y nif de los empleados que trabajan en el
+-- departamento 3.
+delimiter //
+drop procedure if exists eje32;
